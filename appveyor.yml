@@ -2,6 +2,7 @@ version: "{build}"
 
 cache:
  - C:\Cache
+ - C:\gopath/pkg/mod -> go.sum
 
 clone_folder: C:\gopath\src\github.com\influxdata\telegraf
 
