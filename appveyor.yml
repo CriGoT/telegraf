@@ -22,6 +22,7 @@ install:
   - git config --system core.longpaths true
   - go version
   - go env
+  - go mod download
 
 build_script:
   - cmd: C:\GnuWin32\bin\make
