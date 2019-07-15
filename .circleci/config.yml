@@ -2,6 +2,8 @@
 defaults:
   defaults: &defaults
     working_directory: '/go/src/github.com/influxdata/telegraf'
+    environment:
+      GO111MODULE: on
   go-1_10: &go-1_10
     docker:
       - image: 'quay.io/influxdb/telegraf-ci:1.10.8'
@@ -19,14 +21,14 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: vendor-{{ checksum "go.sum" }}
+          key: go-mod-v1-{{ checksum "go.sum" }}
       - run: 'make deps'
       - run: 'go mod verify'
       - save_cache:
-          name: 'vendored deps'
-          key: vendor-{{ checksum "go.sum" }}
+          name: 'go module cache'
+          key: go-mod-v1-{{ checksum "go.sum" }}
           paths:
-            - './vendor'
+            - '/go/pkg/mod'
       - persist_to_workspace:
           root: '/go/src'
           paths:
