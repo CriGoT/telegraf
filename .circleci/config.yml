@@ -19,12 +19,12 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: vendor-{{ checksum "Gopkg.lock" }}
+          key: vendor-{{ checksum "go.sum" }}
       - run: 'make deps'
-      - run: 'dep check'
+      - run: 'go mod verify'
       - save_cache:
           name: 'vendored deps'
-          key: vendor-{{ checksum "Gopkg.lock" }}
+          key: vendor-{{ checksum "go.sum" }}
           paths:
             - './vendor'
       - persist_to_workspace:

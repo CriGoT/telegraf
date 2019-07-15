@@ -33,15 +33,15 @@ all:
 
 .PHONY: deps
 deps:
-	go mod verify
+	go mod vendor
 
 .PHONY: telegraf
 telegraf:
-	go build -ldflags "$(LDFLAGS)" ./cmd/telegraf
+	go build -mod=vendor -ldflags "$(LDFLAGS)" ./cmd/telegraf
 
 .PHONY: go-install
 go-install:
-	go install -ldflags "-w -s $(LDFLAGS)" ./cmd/telegraf
+	go install -mod=vendor -ldflags "-w -s $(LDFLAGS)" ./cmd/telegraf
 
 .PHONY: install
 install: telegraf
@@ -51,7 +51,7 @@ install: telegraf
 
 .PHONY: test
 test:
-	go test -short ./...
+	go test -mod=vendor -short ./...
 
 .PHONY: fmt
 fmt:
@@ -90,7 +90,7 @@ check: fmtcheck vet
 
 .PHONY: test-all
 test-all: fmtcheck vet
-	go test ./...
+	go test -mod=vendor ./...
 
 .PHONY: package
 package:
@@ -124,7 +124,7 @@ static:
 	@CGO_ENABLED=0 \
 	GOOS=linux \
 	GOARCH=amd64 \
-	go build -ldflags "$(LDFLAGS)" ./cmd/telegraf
+	go build -mod=vendor -ldflags "$(LDFLAGS)" ./cmd/telegraf
 
 .PHONY: plugin-%
 plugin-%:
