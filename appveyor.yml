@@ -14,22 +14,20 @@ platform: x64
 install:
   - IF NOT EXIST "C:\Cache" mkdir C:\Cache
   - IF NOT EXIST "C:\Cache\go1.12.5.msi" curl -o "C:\Cache\go1.12.5.msi" https://storage.googleapis.com/golang/go1.12.5.windows-amd64.msi
-  - IF NOT EXIST "C:\Cache\gnuwin32-bin.zip" curl -o "C:\Cache\gnuwin32-bin.zip" https://dl.influxdata.com/telegraf/ci/make-3.81-bin.zip
   - IF EXIST "C:\Go" rmdir /S /Q C:\Go
   - msiexec.exe /i "C:\Cache\go1.12.5.msi" /quiet
-  - 7z x "C:\Cache\gnuwin32-bin.zip" -oC:\GnuWin32 -y
+  - choco install make
   - cd "%GOPATH%\src\github.com\influxdata\telegraf"
   - git config --system core.longpaths true
   - go version
   - go env
-  - go mod download
 
 build_script:
-  - cmd: C:\GnuWin32\bin\make
+  - make
 
 test_script:
-  - cmd: C:\GnuWin32\bin\make check
-  - cmd: C:\GnuWin32\bin\make test-windows
+  - make check
+  - make test-windows
 
 artifacts:
   - path: telegraf.exe
