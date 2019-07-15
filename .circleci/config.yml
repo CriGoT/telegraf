@@ -42,7 +42,7 @@ jobs:
     <<: [ *defaults, *go-1_10 ]
     steps:
       - attach_workspace:
-          at: '/go/src'
+          at: '/go'
       # disabled due to gofmt differences (1.10 vs 1.11).
       #- run: 'make check'
       - run: 'make test'
@@ -50,21 +50,21 @@ jobs:
     <<: [ *defaults, *go-1_11 ]
     steps:
       - attach_workspace:
-          at: '/go/src'
+          at: '/go'
       - run: 'make check'
       - run: 'make test'
   test-go-1.12:
     <<: [ *defaults, *go-1_12 ]
     steps:
       - attach_workspace:
-          at: '/go/src'
+          at: '/go'
       - run: 'GOARCH=386 make check'
       - run: 'GOARCH=386 make test'
   test-go-1.12-386:
     <<: [ *defaults, *go-1_12 ]
     steps:
       - attach_workspace:
-          at: '/go/src'
+          at: '/go'
       - run: 'GOARCH=386 make check'
       - run: 'GOARCH=386 make test'
 
@@ -72,7 +72,7 @@ jobs:
     <<: [ *defaults, *go-1_12 ]
     steps:
       - attach_workspace:
-          at: '/go/src'
+          at: '/go'
       - run: 'make package'
       - store_artifacts:
           path: './build'
@@ -81,7 +81,7 @@ jobs:
     <<: [ *defaults, *go-1_12 ]
     steps:
       - attach_workspace:
-          at: '/go/src'
+          at: '/go'
       - run: 'make package-release'
       - store_artifacts:
           path: './build'
@@ -90,7 +90,7 @@ jobs:
     <<: [ *defaults, *go-1_12 ]
     steps:
       - attach_workspace:
-          at: '/go/src'
+          at: '/go'
       - run: 'make package-nightly'
       - store_artifacts:
           path: './build'
