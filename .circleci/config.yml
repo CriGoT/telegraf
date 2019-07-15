@@ -34,7 +34,7 @@ jobs:
           paths:
             - '/go/pkg/mod'
       - persist_to_workspace:
-          root: '/go/src'
+          root: '/go'
           paths:
             - '*'
 
