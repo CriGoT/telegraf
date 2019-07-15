@@ -27,6 +27,7 @@ jobs:
       - restore_cache:
           key: go-mod-v1-{{ checksum "go.sum" }}
       - run: 'make deps'
+      - run: 'go mod vendor' # in order to not break < go1.11
       - run: 'go mod verify'
       - save_cache:
           name: 'go module cache'
